@@ -40,8 +40,8 @@ const getWeaponsTypes = (callback) => {
     })
 }
 
-const getCrime = (callback) => {
-  axios.get("crime")
+const getCrime = (crime_id, callback) => {
+  axios.get(`crime?crime_id=${crime_id}`)
     .then(res => {
       callback(true, res.data)
     })
@@ -58,6 +58,26 @@ const getAllCrimes = (callback) => {
     .catch(e => {
       callback(false, e)
     })
+}
+
+const getAllCrimeTypes = (callback) => {
+  axios.get("crime_types")
+    .then(res => {
+      callback(true, res.data)
+    })
+    .catch(e => {
+      callback(false, e)
+    })
+}
+
+const crimesSearch = (params, callback) => {
+  axios.get(`crimes?${params}`)
+  .then(res => {
+    callback(true, res.data)
+  })
+  .catch(e => {
+    callback(false, e)
+  })
 }
 
 const insertNewCrime = (params, callback) => {
@@ -87,6 +107,8 @@ const requests = {
   getWeaponsTypes,
   getCrime,
   getAllCrimes,
+  getAllCrimeTypes,
+  crimesSearch,
   insertNewCrime,
   deleteCrime
 }

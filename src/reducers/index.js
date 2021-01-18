@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import home from './Home'
+import crime from './CrimeReducer'
 
 export default combineReducers({
-  home,
+  crime,
 })
