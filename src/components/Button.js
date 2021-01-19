@@ -1,13 +1,26 @@
 import React, { useEffect } from 'react'
+import { FaSearch, FaSearchPlus, FaRegPlusSquare } from "react-icons/fa";
 
 const Button = props => {
 
+  let type = props.type
+
   return(
-    <button 
-      onClick={props.onClick}
-    >
-      {props.text}
-    </button>
+    <div className='button'>
+      <button 
+        onClick={props.onClick}
+        className={props.className}
+      >
+        {
+          type === 'adicionar' ?
+            <FaRegPlusSquare />
+          :
+            <FaSearch />
+        }
+        {props.text}
+      </button>
+    </div>
+
   )
 }
 

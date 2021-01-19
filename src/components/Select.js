@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+
+//FaSortAmountDownAlt, FaSearch, FaRegPlusSquare, FaSearchPlus
+
 const Select = props => {
 
   let selectType =  props.selectType
@@ -21,12 +24,15 @@ const Select = props => {
   }
 
   return(
-    <select onChange={props.onChange}>
-      <option value='-1'>{props.placeholder}</option>
-      {data.map(item => (
-        renderOption(item)
-      ))}
-    </select>
+    <div>
+      <select onChange={props.onChange}>
+        <option value='-1'>{props.placeholder}</option>
+        {props.data.map(item => (
+          renderOption(item)
+        ))}
+      </select>
+    </div>
+      
   )
 }
 

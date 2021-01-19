@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { DataGrid } from '@material-ui/data-grid';
+import moment from 'moment'
 
-const Table = props => {
+const Table = ({data}) => {
 
   const columns = [
     { field: 'id', headerName: 'ID',},
@@ -8,35 +10,52 @@ const Table = props => {
     { field: 'date', headerName: 'Data',  },
     { field: 'victims', headerName: 'Vitímas', },
     { field: 'country', headerName: 'Países', },
+    { field: 'details', headerName: 'Detalhes', },
   ]
-  let data = props.data
 
   function renderColums() {
     return columns.map(item => <th key={item.field}>{item.headerName}</th> )
   }
+  
+  let [lines, setLines] = useState([])
 
-  function renderLines() {
-    return (
+  useEffect(() => {
+    let array = []
+    if(data){
       data.map(item => {
-        return(
-          <tr>
-            <td key={item.id}>{item.id}</td>
-            <td key={item.id}>{item.criminal}</td>
-            <td key={item.id}>{item.date}</td>
-            <td key={item.id}>{item.victims}</td>
-            <td key={item.id}>{item.country}</td>
-          </tr>
+        array.push(
+          {
+            id : item.id_crime,
+            criminal : '',
+            date: item.crime_date,
+            victims: item.victims_crime[0]?.victim,
+            country: item.country
+          }
         )
       })
-    )
-  }
+      setLines(array)
+    }
+  }, [data])
   
   return(
     <div style={{ height: '100%', width: '100%' }}>
       <table>
         <tbody>
           <tr>{ renderColums() }</tr>
-          {renderLines()}
+          {
+            lines.map(item => {
+              return(
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.criminal}</td>
+                  <td>{moment(item.date).format('DD/MM/YYYY')}</td>
+                  <td>{item.victims}</td>
+                  <td>{item.country}</td>
+                  <td><a href>Detalhes</a></td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </table>
     </div>
