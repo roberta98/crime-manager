@@ -7,15 +7,16 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Select from '../components/Select'
 import Button from '../components/Button'
+import Table from '../components/Table'
 
 const Home = (props) => {
 
   const [orderBy, setOrderBy] = useState('')
   const [filter, setFilter] = useState('')
-  const [searchResult, setSearchResult] = useState([])
+  const [hasSearch, setHasSearch] = useState(false)
+  const searchResult = []
   const crime_types = props.dataCrime.allCrimeTypes ? props.dataCrime.allCrimeTypes.crime_types : []
   let crime_id = -1
-  
 
   const filterType = [
     'Date', 
@@ -39,41 +40,69 @@ const Home = (props) => {
     let text = e.target.value
     setOrderBy(text)
   }
-
+  
   function sendSeach(){
-    let order_by = orderBy ? `order_by=${orderBy}` : ''
-    let filterCrimeType = filter ? `crime_type=${filter}` : ''
+    let order_by = orderBy ? `crime_type=${orderBy}` : ''
+    let filterCrimeType = filter ? `order_by=${filter}` : ''
     let params = `${filterCrimeType}&${order_by}`
     crimeRequest.crimesSearch(params, (isSuccessful, res) => {
       if(isSuccessful){
-        setSearchResult(res)
+        setHasSearch(true)
+        res.data.crimes.map(item => {
+          searchResult.push(
+            {
+              id : item.id_crime,
+              criminal : '',
+              date: item.crime_date,
+              victims: item.victims_crime[0].victim,
+              country: item.country
+            }
+          )
+        })
       }
     })
+    console.log(searchResult)
   }
 
   function renderFieldsSearch() {
     return(
       <div>
-        <h1 className='homeTitle'>LISTAS DE CRIMES</h1>
-        <div className='form'>
-          <label>Busca por país</label>
-          <input type="text" className='searchInput' placeholder='Search for...' />
-          <label>Tipo do crime</label> {/* inserir icone */}
-          <Select 
-            onChange={handleOrderBy} 
-            placeholder={'Todos crimes'} 
-            data={crime_types} 
-            selectType={'orderBy'}
-          />
-          <label>Ordenar por</label> {/* inserir icone */}
-          <Select 
-            onChange={handleFilter} 
-            placeholder={'Escolha um filtro'} 
-            data={filterType} 
-            selectType={'filter'}
-          />
-          <Button onClick={() => sendSeach()} text={'Buscar'}/>
+        <div>
+          <h1 className='homeTitle'>LISTAS DE CRIMES</h1>
+          {/* <Button text={'ADD NOVO CRIME'} /> */}
         </div>
+        <div className='info_area'>
+          <div className='form col-sm-12 col-md-12 col-lg-5'>
+            <label>Busca por país</label>
+            <input type="text" className='searchInput' placeholder='Search for...' />
+            <label>Tipo do crime</label> {/* inserir icone */}
+            <Select 
+              onChange={handleOrderBy} 
+              placeholder={'Todos crimes'} 
+              data={crime_types} 
+              selectType={'orderBy'}
+            />
+            <label>Ordenar por</label> {/* inserir icone */}
+            <Select 
+              onChange={handleFilter} 
+              placeholder={'Escolha um filtro'} 
+              data={filterType} 
+              selectType={'filter'}
+            />
+            <Button 
+              onClick={() => sendSeach()} 
+              text={'BUSCAR'}/>
+          </div>
+          {/* {hasSearch && */}
+            <div className='table col-sm-12 col-md-12 col-lg-5 offset-lg-1'>
+              <Table 
+                data={searchResult}
+              />
+            </div>
+          {/* } */}
+
+        </div>
+       
       </div>
     )
   }

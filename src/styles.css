@@ -40,8 +40,22 @@ body {
 }
 
 .container {
-  width: 1168px;
+  width: 1200px;
   margin: 40px auto;
+  overflow-y: auto;
+}
+.info_area{
+  max-width: 1460px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container{
+  width: 100%;
+  padding-right: var(--bs-gutter-x, .75rem);
+  padding-left: var(--bs-gutter-x, .75rem);
+  margin-right: auto;
+  margin-left: auto
 }
 
 .containerTitle {
@@ -79,6 +93,7 @@ body {
   bottom: 0px;
   left: 0px;
   right: 0px;
+  margin-top: 60px;
   margin-bottom: 0px;
   box-shadow: 2px -3px 3px #00000029;
 }
@@ -125,4 +140,20 @@ input::placeholder{
   font-size: 16px;
   color: #95A0A6;
   font-family:'Montserrat-medium';
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
