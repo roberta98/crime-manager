@@ -45,24 +45,39 @@ body {
   overflow-y: auto;
   background-color: 'red';
 }
-.info_area{
-  /* max-width: 1460px; */
+.info_area, .containerButton, .buttonNewCrime {
   display: flex;
   flex-wrap: wrap;
 }
 
-.headerTitle {
-  /* max-width: 1460px; */
-  display: flex;
-  flex-wrap: wrap;
+.buttonNewCrime {
+  border: none;
+  background-color: #FCFC99;
+  box-shadow: 3px 3px 5px #00000029, -3px -3px 5px #FFFFFFC9;
+  width: 230px;
+  height: 50px;
+  font-family: 'Cinzel-Bold';
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  margin-right: 16px;
 }
-
+.buttonNewCrime h4{
+  margin-top: 12px;
+}
+.buttonNewCrime svg {
+  margin-top: 14px;
+}
 .container{
   width: 100%;
   padding-right: var(--bs-gutter-x, .75rem);
   padding-left: var(--bs-gutter-x, .75rem);
   margin-right: auto;
-  margin-left: auto
+  margin-left: auto;
+  margin-bottom: 10%;
 }
 
 .containerTitle {
@@ -132,9 +147,13 @@ input, select{
 }
 
 .button {
-  width: 250px;
+  width: 230px;
   height: 50px;
   margin-bottom: 15px;
+}
+
+.right {
+  margin-right: 16px;
 }
 
 button {

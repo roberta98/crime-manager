@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
+import { FaFolderOpen, FaSortAmountDownAlt, FaRegPlusSquare} from "react-icons/fa"; 
 import * as crimeAction from '../action/CrimeAction'
 import crimeRequest from '../services/requests'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 import Select from '../components/Select'
 import Button from '../components/Button'
 import Table from '../components/Table'
-import { FaFolderOpen, FaSortAmountDownAlt} from "react-icons/fa"; 
 
 const Home = (props) => {
 
@@ -52,10 +51,7 @@ const Home = (props) => {
   function renderFieldsSearch() {
     return(
       <div>
-        <div className='headerTitle'>
-          <h1 className='homeTitle'>LISTAS DE CRIMES</h1>
-          <Button type={'adicionar'} text={'ADD NOVO CRIME'} className={'offset-sm-0 offset-lg-11'} />
-        </div>
+        <h1 className='homeTitle'>LISTAS DE CRIMES</h1>
         <div className='info_area'>
           <div className='form col-sm-12 col-md-12 col-lg-5'>
             <label>Busca por país</label>
@@ -80,9 +76,18 @@ const Home = (props) => {
               data={filterType} 
               selectType={'filter'}
             />
-            <Button 
-              onClick={() => sendSeach()} 
-              text={'BUSCAR'}/>
+            <div className='containerButton'>
+              <Link to='/newCrime' className='buttonNewCrime'>
+                <div className='icon'><FaRegPlusSquare /></div>
+                <h4>ADD NOVO CRIME</h4>
+              </Link>
+              <Button 
+                onClick={() => sendSeach()} 
+                text={'BUSCAR'}
+              />
+              
+            </div>
+            
           </div>
           {hasSearch &&
             <div className='table col-sm-12 col-md-12 col-lg-5 offset-lg-1'>
@@ -99,14 +104,10 @@ const Home = (props) => {
   }
 
   return(
-    <div>
-      <Header />
-      <div className='container'> 
-        <div className='row'>
-          {renderFieldsSearch()}
-        </div>
+    <div className='container'> 
+      <div className='row'>
+        {renderFieldsSearch()}
       </div>
-      <Footer />
     </div>
   )
 }
