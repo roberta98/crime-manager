@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@material-ui/data-grid';
 import moment from 'moment'
+import { FaTrashAlt } from "react-icons/fa";
+import crimeRequests from '../services/requests'
 
 const Table = ({data}) => {
 
@@ -17,7 +19,7 @@ const Table = ({data}) => {
     return columns.map(item => <th key={item.field}>{item.headerName}</th> )
   }
   
-  let [lines, setLines] = useState([])
+  const [lines, setLines] = useState([])
 
   useEffect(() => {
     let array = []
@@ -36,6 +38,12 @@ const Table = ({data}) => {
       setLines(array)
     }
   }, [data])
+
+  function deleteCrime(id_crime){
+    crimeRequests.deleteCrime(id_crime, () => {
+      alert('Crime deletado com sucesso')
+    })
+  }
   
   return(
     <div style={{ height: '100%', width: '100%' }}>
@@ -51,7 +59,11 @@ const Table = ({data}) => {
                   <td>{moment(item.date).format('DD/MM/YYYY')}</td>
                   <td>{item.victims}</td>
                   <td>{item.country}</td>
-                  <td><a href>Detalhes</a></td>
+                  <td>
+                    <a onClick={() => deleteCrime(item.id)}>
+                      <FaTrashAlt />
+                    </a>
+                  </td>
                 </tr>
               )
             })

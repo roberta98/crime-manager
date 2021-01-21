@@ -91,7 +91,7 @@ const insertNewCrime = (params, callback) => {
 }
 
 const deleteCrime = (id_crime, callback) => {
-  axios.delete("crime")
+  axios.delete(`crime?crime_id=${id_crime}`)
     .then(res => {
       callback(true, res.data)
     })

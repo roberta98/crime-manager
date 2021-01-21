@@ -16,7 +16,6 @@ const Home = (props) => {
   const [hasSearch, setHasSearch] = useState(false)
   let [searchResult, setSearchResult] = useState([])
   const [crimeTypes, setCrimeTypes] = useState([])
-  let crime_id = -1
 
   const filterType = [
     'Date', 
@@ -27,25 +26,26 @@ const Home = (props) => {
   ]
 
   useEffect(() => {
-    //props.crime.getCrime(crime_id) 
     props.crime.getAllCrimes()
     props.crime.getAllCrimeTypes()
+    props.crime.getAllWeapons()
+    props.crime.getAllVictims()
+    props.crime.getAllCriminals()
     console.log(props.dataCrime)
     setCrimeTypes(props.dataCrime.allCrimeTypes.crime_types)
   }, [])
+
   
   function sendSeach(){
     let order_by = orderBy ? `crime_type=${orderBy}` : ''
     let filterCrimeType = filter ? `order_by=${filter}` : ''
     let params = `${filterCrimeType}&${order_by}`
-    let array = []
     crimeRequest.crimesSearch(params, (isSuccessful, res) => {
       if(isSuccessful){
         setHasSearch(true)    
         setSearchResult(res.data.crimes)
       }
     })
-    // console.log(array, array.length)
   }
 
   function renderFieldsSearch() {
@@ -56,7 +56,7 @@ const Home = (props) => {
           <div className='form col-sm-12 col-md-12 col-lg-5'>
             <label>Busca por país</label>
             <input type="text" className='searchInput' placeholder='Search for...' />
-            <label>
+            <label className='label'>
               <FaFolderOpen />
               Tipo do crime
             </label> {/* inserir icone */}
@@ -81,11 +81,12 @@ const Home = (props) => {
                 <div className='icon'><FaRegPlusSquare /></div>
                 <h4>ADD NOVO CRIME</h4>
               </Link>
-              <Button 
-                onClick={() => sendSeach()} 
-                text={'BUSCAR'}
-              />
-              
+              <div className='button'>
+                <Button 
+                  onClick={() => sendSeach()} 
+                  text={'BUSCAR'}
+                />
+              </div>
             </div>
             
           </div>
