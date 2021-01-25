@@ -43,7 +43,7 @@ const getWeaponsTypes = (callback) => {
 const getCrime = (crime_id, callback) => {
   axios.get(`crime?crime_id=${crime_id}`)
     .then(res => {
-      callback(true, res.data)
+      callback(true, res)
     })
     .catch(e => {
       callback(false, e)

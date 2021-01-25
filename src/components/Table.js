@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { DataGrid } from '@material-ui/data-grid';
 import moment from 'moment'
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaRegFile } from "react-icons/fa";
 import crimeRequests from '../services/requests'
+import Modal from './Modal'
 
 const Table = ({data}) => {
+
+  const [show, setShow] = useState(false)
 
   const columns = [
     { field: 'id', headerName: 'ID',},
@@ -15,12 +17,26 @@ const Table = ({data}) => {
     { field: 'details', headerName: 'Detalhes', },
   ]
 
+  function showModal(){
+    setShow(true)
+  }
+  function hideModal(){
+    setShow(false)
+  }
+  function toggleModal(){
+    if(show){
+      hideModal()
+    }else{
+      showModal()
+    }
+  }
+
   function renderColums() {
     return columns.map(item => <th key={item.field}>{item.headerName}</th> )
   }
   
   const [lines, setLines] = useState([])
-
+  const [idCrime, setIdCrime] = useState(0)
   useEffect(() => {
     let array = []
     if(data){
@@ -59,9 +75,17 @@ const Table = ({data}) => {
                   <td>{moment(item.date).format('DD/MM/YYYY')}</td>
                   <td>{item.victims}</td>
                   <td>{item.country}</td>
-                  <td>
+                  <td 
+                    style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 18}}>
                     <a onClick={() => deleteCrime(item.id)}>
                       <FaTrashAlt />
+                    </a>
+                    <a onClick={() => {
+                        toggleModal()
+                        setIdCrime(item.id)
+                      }}
+                    >
+                      <FaRegFile />
                     </a>
                   </td>
                 </tr>
@@ -70,6 +94,9 @@ const Table = ({data}) => {
           }
         </tbody>
       </table>
+      {show && 
+        <Modal show={show} idCrime={idCrime} />
+      }
     </div>
   )
 }

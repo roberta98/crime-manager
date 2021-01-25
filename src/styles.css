@@ -219,10 +219,52 @@ svg {
 a {
   cursor: pointer;
 }
+.containerModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
 
-a svg {
-  align-self: center;
-  justify-content: center;
-  display: block;
-  width: 100%;
+.modal {
+  position:fixed;
+  background: white;
+  width: 500px;
+  height: 400px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.contextModal{
+  padding: 20px;
+}
+
+.contextModal h1, h4 {
+  font-family: 'Cinzel-regular';
+}
+
+.contextModal h1, h3{
+  margin-bottom: 14px;
+}
+
+.contextModal p {
+  font-family: 'Montserrat-regular';
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.titleContext{
+  font-family: 'Montserrat-black';
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.containerIcon{
+  justify-content: space-between;
+  flex-direction: row;
+  padding-top: 8px;
 }

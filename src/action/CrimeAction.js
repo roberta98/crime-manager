@@ -120,7 +120,7 @@ const getCrimeFailed = (e) => ({
 
 export const getCrime = (crime_id) => dispatch => {
   dispatch(getCrimeLoading())
-  requests.getCrime((isSuccessful, res) => {
+  requests.getCrime(crime_id, (isSuccessful, res) => {
     if(isSuccessful){
       //console.log(res.data)
       dispatch(getCrimeSuccess(res.data))
